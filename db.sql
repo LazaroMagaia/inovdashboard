@@ -36,6 +36,7 @@ CREATE TABLE `cache` (
 
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
+INSERT INTO `cache` VALUES ('llmagaia25@gmail.com|127.0.0.1','i:1;',1728329278),('llmagaia25@gmail.com|127.0.0.1:timer','i:1728329278;',1728329278),('llmagaia26@gmail.com|127.0.0.1','i:2;',1727370147),('llmagaia26@gmail.com|127.0.0.1:timer','i:1727370147;',1727370147);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,11 +76,10 @@ CREATE TABLE `cursos` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `client_type` enum('system','campaign','both') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'both',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `cursos` (
 
 LOCK TABLES `cursos` WRITE;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
-INSERT INTO `cursos` VALUES (1,'Comunicação e Expressão Oral','Desenvolva habilidades para comunicar-se de forma clara e eficaz. O curso aborda técnicas de apresentação, oratória, e habilidades interpessoais essenciais para uma comunicação bem-sucedida em diversos contextos.','images/rSGkimQ9bVae8zCxvr3zgAI2IIsOJABDgF80AoVV.jpg','both','2024-08-25 10:34:07','2024-08-25 10:45:18'),(2,'Introdução à Programação','Um curso ideal para iniciantes interessados em aprender os fundamentos da programação. Aborda conceitos básicos, lógica de programação e introdução a linguagens como Python ou JavaScript.','images/9LnTlB6L4yNy0SFvC3XHWC9oRlme5dsXZKJcsQHs.jpg','system','2024-08-25 10:34:49','2024-08-25 10:34:49'),(3,'Finanças Pessoais','Aprenda a gerenciar seu dinheiro de forma eficiente, desde orçamento e poupança até investimentos e planejamento para o futuro. O curso oferece dicas práticas para melhorar sua saúde financeira.','images/3u8ZltDWLfsFtWpzuMd3CNcmoyeF66IePMIc2aZq.jpg','campaign','2024-08-25 10:35:26','2024-08-25 10:36:10');
+INSERT INTO `cursos` VALUES (1,'Comunicação e Expressão Oral','Desenvolva habilidades para comunicar-se de forma clara e eficaz. O curso aborda técnicas de apresentação, oratória, e habilidades interpessoais essenciais para uma comunicação bem-sucedida em diversos contextos.','images/rSGkimQ9bVae8zCxvr3zgAI2IIsOJABDgF80AoVV.jpg','2024-08-25 10:34:07','2024-08-25 10:45:18'),(2,'Introdução à Programação','Um curso ideal para iniciantes interessados em aprender os fundamentos da programação. Aborda conceitos básicos, lógica de programação e introdução a linguagens como Python ou JavaScript.','images/9LnTlB6L4yNy0SFvC3XHWC9oRlme5dsXZKJcsQHs.jpg','2024-08-25 10:34:49','2024-09-18 15:21:31'),(3,'Finanças Pessoais','Aprenda a gerenciar seu dinheiro de forma eficiente, desde orçamento e poupança até investimentos e planejamento para o futuro. O curso oferece dicas práticas para melhorar sua saúde financeira.','images/3u8ZltDWLfsFtWpzuMd3CNcmoyeF66IePMIc2aZq.jpg','2024-08-25 10:35:26','2024-09-18 08:50:53'),(5,'Novo curso','dsadsadd',NULL,'2024-09-17 17:50:12','2024-09-18 07:35:53'),(6,'Grupo 1','Grupo 1 descricao',NULL,'2024-09-18 15:17:05','2024-09-18 15:19:55'),(7,'Grupo 2','Grupo 2 descricao',NULL,'2024-09-18 15:17:23','2024-09-18 15:17:23');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,6 +119,94 @@ CREATE TABLE `failed_jobs` (
 LOCK TABLES `failed_jobs` WRITE;
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_cursos`
+--
+
+DROP TABLE IF EXISTS `group_cursos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `group_cursos` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `curso_id` bigint unsigned NOT NULL,
+  `group_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_cursos_curso_id_foreign` (`curso_id`),
+  KEY `group_cursos_group_id_foreign` (`group_id`),
+  CONSTRAINT `group_cursos_curso_id_foreign` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `group_cursos_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_cursos`
+--
+
+LOCK TABLES `group_cursos` WRITE;
+/*!40000 ALTER TABLE `group_cursos` DISABLE KEYS */;
+INSERT INTO `group_cursos` VALUES (3,5,1,'2024-09-17 17:50:12','2024-09-17 17:50:12'),(5,5,5,NULL,NULL),(8,3,5,NULL,NULL),(9,3,1,NULL,NULL),(10,6,6,'2024-09-18 15:17:05','2024-09-18 15:17:05'),(11,7,7,'2024-09-18 15:17:23','2024-09-18 15:17:23'),(12,6,7,NULL,NULL),(13,2,6,NULL,NULL);
+/*!40000 ALTER TABLE `group_cursos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_users`
+--
+
+DROP TABLE IF EXISTS `group_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `group_users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `group_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_users_user_id_foreign` (`user_id`),
+  KEY `group_users_group_id_foreign` (`group_id`),
+  CONSTRAINT `group_users_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `group_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_users`
+--
+
+LOCK TABLES `group_users` WRITE;
+/*!40000 ALTER TABLE `group_users` DISABLE KEYS */;
+INSERT INTO `group_users` VALUES (5,17,4,NULL,NULL),(6,17,1,NULL,NULL),(7,10,4,NULL,NULL),(8,10,1,NULL,NULL),(9,1,4,NULL,NULL),(10,1,1,NULL,NULL),(11,18,6,NULL,NULL),(12,19,7,NULL,NULL),(13,18,7,NULL,NULL),(14,21,6,NULL,NULL),(21,29,6,NULL,NULL),(22,29,7,NULL,NULL);
+/*!40000 ALTER TABLE `group_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groups`
+--
+
+DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `groups` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groups`
+--
+
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` VALUES (1,'sistema','2024-09-17 16:48:32','2024-09-17 16:48:32'),(4,'Antonio Madlante teste','2024-09-17 17:07:44','2024-09-17 17:07:44'),(5,'Antonio Madlante teste','2024-09-17 17:07:47','2024-09-17 17:07:47'),(6,'grupo1','2024-09-18 15:10:53','2024-09-18 15:10:53'),(7,'grupo2','2024-09-18 15:10:58','2024-09-18 15:10:58');
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -193,7 +281,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +290,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (16,'0001_01_01_000000_create_users_table',1),(17,'0001_01_01_000001_create_cache_table',1),(18,'0001_01_01_000002_create_jobs_table',1),(19,'2024_08_08_074829_create_permission_tables',1),(48,'2024_08_12_170155_create_cursos_table',2),(49,'2024_08_12_170201_create_videos_table',2),(50,'2024_08_15_075149_create_perguntas_table',2),(51,'2024_08_15_075200_create_respostas_table',2),(52,'2024_08_25_112936_create_video__users_table',2);
+INSERT INTO `migrations` VALUES (16,'0001_01_01_000000_create_users_table',1),(17,'0001_01_01_000001_create_cache_table',1),(18,'0001_01_01_000002_create_jobs_table',1),(19,'2024_08_08_074829_create_permission_tables',1),(48,'2024_08_12_170155_create_cursos_table',2),(49,'2024_08_12_170201_create_videos_table',2),(50,'2024_08_15_075149_create_perguntas_table',2),(51,'2024_08_15_075200_create_respostas_table',2),(52,'2024_08_25_112936_create_video__users_table',2),(53,'2024_08_25_134915_create_personal_access_tokens_table',3),(55,'2024_08_26_071115_add_progress_to_video__users_table',4),(56,'2024_09_17_182554_create_groups_table',5),(57,'2024_09_17_191531_remove_client_type_from_cursos_table',6),(58,'2024_09_17_194400_create_group_cursos_table',7),(60,'2024_09_18_073121_create_group_users_table',8),(61,'2024_09_19_070251_create_video_curso_users_table',9),(62,'2024_09_19_091543_update_curso_id_in_videos_table',10),(64,'2024_09_19_091710_create_video_users_table',11),(65,'2024_09_21_141335_create_origem_clientes_table',12),(66,'2024_09_26_182639_create_settings_templates_table',13),(67,'2024_10_08_130208_create_origin_groups_table',14),(68,'2024_10_08_235538_add_column_to_origem_clientes--table=origem_clientes',15);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,8 +343,68 @@ CREATE TABLE `model_has_roles` (
 
 LOCK TABLES `model_has_roles` WRITE;
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
-INSERT INTO `model_has_roles` VALUES (2,'App\\Models\\User',1),(1,'App\\Models\\User',2),(2,'App\\Models\\User',8),(2,'App\\Models\\User',9),(2,'App\\Models\\User',10);
+INSERT INTO `model_has_roles` VALUES (2,'App\\Models\\User',1),(1,'App\\Models\\User',2),(2,'App\\Models\\User',8),(2,'App\\Models\\User',9),(2,'App\\Models\\User',10),(2,'App\\Models\\User',15),(2,'App\\Models\\User',16),(2,'App\\Models\\User',17),(2,'App\\Models\\User',18),(2,'App\\Models\\User',19),(1,'App\\Models\\User',20),(2,'App\\Models\\User',21),(2,'App\\Models\\User',22),(2,'App\\Models\\User',23),(2,'App\\Models\\User',24),(2,'App\\Models\\User',25),(2,'App\\Models\\User',26),(2,'App\\Models\\User',27),(2,'App\\Models\\User',28),(2,'App\\Models\\User',29);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `origem_clientes`
+--
+
+DROP TABLE IF EXISTS `origem_clientes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `origem_clientes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `origem_clientes`
+--
+
+LOCK TABLES `origem_clientes` WRITE;
+/*!40000 ALTER TABLE `origem_clientes` DISABLE KEYS */;
+INSERT INTO `origem_clientes` VALUES (1,'Antonio Madlante teste 1',NULL,NULL,NULL,'2024-09-21 12:33:21','2024-09-21 12:40:07'),(2,'origem 2',NULL,NULL,NULL,'2024-09-21 12:34:17','2024-09-21 12:34:17'),(3,'Origem 3',NULL,NULL,NULL,'2024-09-21 12:35:17','2024-09-21 12:35:17'),(9,'Teste 1','89e3a668-9c01-4d9d-a1ff-365367a30039','teste-1',NULL,'2024-10-08 22:01:50','2024-10-08 22:01:50');
+/*!40000 ALTER TABLE `origem_clientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `origin_groups`
+--
+
+DROP TABLE IF EXISTS `origin_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `origin_groups` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `groups_id` bigint unsigned NOT NULL,
+  `origem_clientes_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `origin_groups_groups_id_foreign` (`groups_id`),
+  KEY `origin_groups_origem_clientes_id_foreign` (`origem_clientes_id`),
+  CONSTRAINT `origin_groups_groups_id_foreign` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `origin_groups_origem_clientes_id_foreign` FOREIGN KEY (`origem_clientes_id`) REFERENCES `origem_clientes` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `origin_groups`
+--
+
+LOCK TABLES `origin_groups` WRITE;
+/*!40000 ALTER TABLE `origin_groups` DISABLE KEYS */;
+INSERT INTO `origin_groups` VALUES (10,6,9,NULL,NULL),(11,7,9,NULL,NULL);
+/*!40000 ALTER TABLE `origin_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -304,7 +452,7 @@ CREATE TABLE `perguntas` (
   KEY `perguntas_users_id_foreign` (`users_id`),
   CONSTRAINT `perguntas_users_id_foreign` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `perguntas_videos_id_foreign` FOREIGN KEY (`videos_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,6 +461,7 @@ CREATE TABLE `perguntas` (
 
 LOCK TABLES `perguntas` WRITE;
 /*!40000 ALTER TABLE `perguntas` DISABLE KEYS */;
+INSERT INTO `perguntas` VALUES (1,4,18,'adsaasdsd',1,'2024-09-26 15:46:28','2024-10-07 12:12:58');
 /*!40000 ALTER TABLE `perguntas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,6 +494,39 @@ INSERT INTO `permissions` VALUES (1,'edit courses','web','2024-08-09 05:20:13','
 UNLOCK TABLES;
 
 --
+-- Table structure for table `personal_access_tokens`
+--
+
+DROP TABLE IF EXISTS `personal_access_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `personal_access_tokens`
+--
+
+LOCK TABLES `personal_access_tokens` WRITE;
+/*!40000 ALTER TABLE `personal_access_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `personal_access_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `respostas`
 --
 
@@ -363,7 +545,7 @@ CREATE TABLE `respostas` (
   KEY `respostas_users_id_foreign` (`users_id`),
   CONSTRAINT `respostas_perguntas_id_foreign` FOREIGN KEY (`perguntas_id`) REFERENCES `perguntas` (`id`) ON DELETE CASCADE,
   CONSTRAINT `respostas_users_id_foreign` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,6 +554,7 @@ CREATE TABLE `respostas` (
 
 LOCK TABLES `respostas` WRITE;
 /*!40000 ALTER TABLE `respostas` DISABLE KEYS */;
+INSERT INTO `respostas` VALUES (1,1,2,'sSAS','2024-10-07 12:12:58','2024-10-07 12:12:58');
 /*!40000 ALTER TABLE `respostas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,8 +638,38 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('PPIIfj5RWcHrUcO2zdEF7ux0h5SdpKMPQygqKQTE',10,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSzJGUU9STTVEaW1xUE54dTBXNFdoTmRlaWxsdVd0OXFMam1pcHNrMCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jbGllbnQvY3Vyc29zL2RldGFsaGUvMi82Ijt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTA7fQ==',1724590574),('Vg0i9DlPnHwSRUI9jp4zsHtpBRYBB43cKxT14E72',2,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNjZBRllYQjlOS1k0eGhidEpsaDBscTJ2ejFZa0ljUXYwZnE3VzVTNCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9jdXJzb3MiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO30=',1724590451);
+INSERT INTO `sessions` VALUES ('1iygSphU2YjQwkzxLUnlUA8qmthiYUbd3Uv71jsx',2,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36','YTo0OntzOjY6Il90b2tlbiI7czo0MDoib1VTc0JvUnZxMlFtd25TMEc4U2tZbm8xQXJBT1VpMjRBMnNiRHF4TiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi91c2VycyI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==',1728437573),('ZWeKXB1ETYmtaO1CWLKojVzWw5DuzzF2IzskjYqC',NULL,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiSXNIeG5NUFc1ZXVUMTIwb2V0b2hpMFduYnd5MENsS2JWVUpPRDRZRCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fX0=',1728437805);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `settings_templates`
+--
+
+DROP TABLE IF EXISTS `settings_templates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `settings_templates` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `sidebar_background` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sidebar_menu_background` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sidebar_menu_hover` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `top_background` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content_background` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content_table_background` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `settings_templates`
+--
+
+LOCK TABLES `settings_templates` WRITE;
+/*!40000 ALTER TABLE `settings_templates` DISABLE KEYS */;
+/*!40000 ALTER TABLE `settings_templates` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -482,7 +695,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -491,7 +704,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Lazaro','Magaia','827017601','827017602','llmagaia3@gmail.com',NULL,'2',NULL,'$2y$12$YJ2AMU4pqILM3mNcXf5Z9uAiiayQsmPnVX3U6CVrBxFeIe8vYYi2m',NULL,'2024-08-09 05:20:13','2024-08-09 05:20:13'),(2,'Lazaro','Magaia','827017601','827017602','llmagaia2@gmail.com',NULL,'1',NULL,'$2y$12$TR0jxga6ZgOyFtnKQgnHkuBvH966MA4MoBiy4kEh1xeZgvPUssM0i',NULL,'2024-08-09 05:24:10','2024-08-09 05:24:10'),(8,'Edilson','Alfredo','827017601',NULL,'campanha2@gmail.com','1','2',NULL,'$2y$12$evtFF3bwTT/LXzaQJo3VguAmxap15xq61gucUwiFuoFkpHmcaHsWq',NULL,'2024-08-14 14:49:53','2024-08-15 13:22:18'),(9,'Cliente','Externo 2','827017601',NULL,'campanha3@gmail.com','2','2',NULL,'$2y$12$Xd9U6463H3cCh7tPLskfXOMw5PBhTbQqcY4VWdvx/mK3FSn0LjcBa',NULL,'2024-08-15 13:08:35','2024-08-22 01:21:52'),(10,'Campanha','interna','827017601','827017601','campanhainterna@gmail.com','1','2',NULL,'$2y$12$szHtSTKSWYMvOeqNx3Ih5exX9re0911WMHGaIj81TMfoz8JoHeMy6',NULL,'2024-08-15 13:09:31','2024-08-15 13:09:31');
+INSERT INTO `users` VALUES (1,'Lazaro','Magaia','827017601','827017602','llmagaia3@gmail.com','1','2',NULL,'$2y$12$gm5EEJ750QO1X4Bfk3Q4vuOe7rU.JLEbt/3M.bU23yhUNEWqgbBJu',NULL,'2024-08-09 05:20:13','2024-09-23 19:49:50'),(2,'Lazaro','Magaia','827017601','827017602','llmagaia2@gmail.com',NULL,'1',NULL,'$2y$12$TR0jxga6ZgOyFtnKQgnHkuBvH966MA4MoBiy4kEh1xeZgvPUssM0i',NULL,'2024-08-09 05:24:10','2024-08-09 05:24:10'),(8,'Edilson','Alfredo','827017601',NULL,'campanha2@gmail.com','1','2',NULL,'$2y$12$evtFF3bwTT/LXzaQJo3VguAmxap15xq61gucUwiFuoFkpHmcaHsWq',NULL,'2024-08-14 14:49:53','2024-08-15 13:22:18'),(9,'Cliente','Externo 2','827017601',NULL,'campanha3@gmail.com','2','2',NULL,'$2y$12$Xd9U6463H3cCh7tPLskfXOMw5PBhTbQqcY4VWdvx/mK3FSn0LjcBa',NULL,'2024-08-15 13:08:35','2024-08-22 01:21:52'),(10,'Campanha','interna','827017601','827017601','campanhainterna@gmail.com','1','2',NULL,'$2y$12$szHtSTKSWYMvOeqNx3Ih5exX9re0911WMHGaIj81TMfoz8JoHeMy6',NULL,'2024-08-15 13:09:31','2024-08-15 13:09:31'),(17,'Usuario','Teste','827017601',NULL,'llmagaia21@gmail.com','1','2',NULL,'$2y$12$hRbV2GSflZ4SMXuJHsP1UeueSshcf6BnZMbvJQr20ZzlrnMLP6hGK',NULL,'2024-09-18 07:29:39','2024-09-18 07:29:39'),(18,'Grupo 1','Magaia','827017601',NULL,'llmagaia25@gmail.com','1','2',NULL,'$2y$12$tK335AbSE1BI3MOhDihsrOuqhKrvd.0ib3ZxWFQq5XUELO0mRqsfS',NULL,'2024-09-18 15:14:42','2024-09-18 15:14:42'),(19,'Teste 2','Magaia','827017601',NULL,'llmagaia26@gmail.com','1','2',NULL,'$2y$12$V8JH/aTb6yNZi5FvQ3m8pOCuQPh2GAHPFPzQNwL9sLkrYTNipLNrq',NULL,'2024-09-18 15:16:20','2024-09-19 18:52:24'),(20,'Lazaro','Magaia','82701760144',NULL,'llmagaia122@gmail.com',NULL,'1',NULL,'$2y$12$dJ/n/zH0rsOxVc91mCIA0eXp1qG0eWJu/vq/wJ3XdXYg8RNJAtiDW',NULL,'2024-09-21 12:10:43','2024-09-21 12:10:43'),(21,'Lazaro','Magaia','82701764151',NULL,'llmagaia211@gmail.com','2','2',NULL,'$2y$12$hAdzSaTRUIf8bamDXbQINeaqFMl8TuJIrD1bKUqMJCk4MA1mIgd/S',NULL,'2024-09-21 12:51:39','2024-09-21 12:51:39'),(29,'Lazaro','Magaia','82701760145',NULL,'llmagaia30@gmail.com','2','2',NULL,'$2y$12$tJNdZHZOti3gIEbHaKEiMugVwdz6h0pRkgncdjJWOBfgESzOvM3ZK',NULL,'2024-10-08 23:36:01','2024-10-08 23:36:01');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,12 +722,13 @@ CREATE TABLE `video__users` (
   `watched` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `progress` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `video__users_user_id_videos_id_unique` (`user_id`,`videos_id`),
   KEY `video__users_videos_id_foreign` (`videos_id`),
   CONSTRAINT `video__users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   CONSTRAINT `video__users_videos_id_foreign` FOREIGN KEY (`videos_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -523,7 +737,73 @@ CREATE TABLE `video__users` (
 
 LOCK TABLES `video__users` WRITE;
 /*!40000 ALTER TABLE `video__users` DISABLE KEYS */;
+INSERT INTO `video__users` VALUES (11,9,1,1,'2024-08-26 07:36:01','2024-08-26 10:59:45',100);
 /*!40000 ALTER TABLE `video__users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video_curso_users`
+--
+
+DROP TABLE IF EXISTS `video_curso_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `video_curso_users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `curso_id` bigint unsigned NOT NULL,
+  `video_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `video_curso_users_user_id_foreign` (`user_id`),
+  KEY `video_curso_users_curso_id_foreign` (`curso_id`),
+  KEY `video_curso_users_video_id_foreign` (`video_id`),
+  CONSTRAINT `video_curso_users_curso_id_foreign` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `video_curso_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `video_curso_users_video_id_foreign` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_curso_users`
+--
+
+LOCK TABLES `video_curso_users` WRITE;
+/*!40000 ALTER TABLE `video_curso_users` DISABLE KEYS */;
+INSERT INTO `video_curso_users` VALUES (3,9,5,10,'2024-09-19 06:09:56','2024-09-19 06:09:56'),(5,1,5,10,'2024-09-19 06:50:06','2024-09-19 06:50:06'),(6,8,5,10,'2024-09-19 06:50:06','2024-09-19 06:50:06'),(7,18,5,10,'2024-09-19 08:47:56','2024-09-19 08:47:56'),(8,18,2,6,'2024-09-19 12:35:11','2024-09-19 12:35:11'),(9,19,2,6,'2024-09-19 12:35:11','2024-09-19 12:35:11');
+/*!40000 ALTER TABLE `video_curso_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video_users`
+--
+
+DROP TABLE IF EXISTS `video_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `video_users` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `video_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `video_users_user_id_foreign` (`user_id`),
+  KEY `video_users_video_id_foreign` (`video_id`),
+  CONSTRAINT `video_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `video_users_video_id_foreign` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_users`
+--
+
+LOCK TABLES `video_users` WRITE;
+/*!40000 ALTER TABLE `video_users` DISABLE KEYS */;
+INSERT INTO `video_users` VALUES (5,18,12,'2024-09-19 08:47:47','2024-09-19 08:47:47'),(6,1,12,'2024-09-19 12:10:56','2024-09-19 12:10:56');
+/*!40000 ALTER TABLE `video_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -535,7 +815,7 @@ DROP TABLE IF EXISTS `videos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `videos` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `curso_id` bigint unsigned NOT NULL,
+  `curso_id` bigint unsigned DEFAULT NULL,
   `id_video` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -548,7 +828,7 @@ CREATE TABLE `videos` (
   PRIMARY KEY (`id`),
   KEY `videos_curso_id_foreign` (`curso_id`),
   CONSTRAINT `videos_curso_id_foreign` FOREIGN KEY (`curso_id`) REFERENCES `cursos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -557,7 +837,7 @@ CREATE TABLE `videos` (
 
 LOCK TABLES `videos` WRITE;
 /*!40000 ALTER TABLE `videos` DISABLE KEYS */;
-INSERT INTO `videos` VALUES (1,3,'Ip81_0CCJeY','https://youtu.be/Ip81_0CCJeY?si=aQlXUkd9orZfWVr_','The Lion King in 60 Seconds','Everything you need to know about the lion king summarized in 60 seconds.\r\n\r\n\r\nThanks to Oscartoons for lending his voice to this abomination!','https://img.youtube.com/vi/Ip81_0CCJeY/maxresdefault.jpg',1,'2024-08-25','2024-08-25 10:37:23','2024-08-25 10:37:23'),(2,3,'HNbHwmjzcGM','https://youtu.be/HNbHwmjzcGM?si=pzpvu0Gs58Fo3cAu','If Mufasa Was A Better Dad : The Lion King Spoof!','We all love the #lionking  and #mufasa  is a pretty good dad but I dare to ask what if he was better? It is #fathersday  month so there I did it. \r\n\r\n#solidjj  #cartoons  #disney','https://img.youtube.com/vi/HNbHwmjzcGM/maxresdefault.jpg',2,'2024-08-25','2024-08-25 10:38:13','2024-08-25 10:38:13'),(3,3,'Xiw8RCD8mZ4','https://youtu.be/Xiw8RCD8mZ4?si=D8fxZAxtWxxFZm_D','Zootopia in 3 Minutes','Get AtlasVPN for only $1.39 per month for a limited time! https://atlasv.pn/Reedflower\r\n\r\n\r\nSome editing help and Flash the Sloth by Vindag\r\nAll other male voices by HeyZKay:    • Video','https://img.youtube.com/vi/Xiw8RCD8mZ4/maxresdefault.jpg',3,'2024-08-25','2024-08-25 10:38:52','2024-08-25 10:38:52'),(4,2,'VWAqDfFtB0g','https://youtu.be/VWAqDfFtB0g?si=NjHpr8pWZh0ZzDNE','The Apollo Program in 60 Seconds','Made for the 50th anniversary of the Apollo 11 landing, this is a very quick look at all the other Apollo missions that led up to and went beyond the first steps on the Moon.','https://img.youtube.com/vi/VWAqDfFtB0g/maxresdefault.jpg',1,'2024-08-25','2024-08-25 10:40:21','2024-08-25 10:40:21'),(5,2,'XASY30EfGAc','https://youtu.be/XASY30EfGAc?si=KQO54RVlm8YiqTdW','What is a Programming Language in 60 seconds!','Did you know that a programming language is a way for humans to tell computers what to do? In this episode, Laura Holmes goes over how programming languages work and what they are best used for.','https://img.youtube.com/vi/XASY30EfGAc/maxresdefault.jpg',2,'2024-08-25','2024-08-25 10:41:05','2024-08-25 10:41:05'),(6,2,'yp_531ec3D0','https://youtu.be/yp_531ec3D0?si=OY9yR_20RARTkb_x','Programming in 60 seconds','This video explain the main concept behind programming.','https://img.youtube.com/vi/yp_531ec3D0/maxresdefault.jpg',3,'2024-08-25','2024-08-25 10:41:43','2024-08-25 10:41:43'),(7,1,'SjIlYK5BBlI','https://youtu.be/SjIlYK5BBlI?si=O3IkyTHEAyihk2j7','Life in 60 Seconds','Get to know 60 Second Docs, a series of short documentaries profiling subjects and examining perspectives, trends and aspirations beneath the surface, yet all within reach of the mainstream. We provide a fresh look into the most unique characters, lifestyles and trends around the world. Watch us on all of your favorite platforms -- Facebook, Instagram, Twitter, YouTube, Snapchat, Amazon and more. Got a minute?','https://img.youtube.com/vi/SjIlYK5BBlI/maxresdefault.jpg',1,'2024-08-25','2024-08-25 10:42:45','2024-08-25 10:42:45'),(8,1,'IpNG4ohSUkI','https://youtu.be/IpNG4ohSUkI?si=W1JAEzw1oPGog0l1','Loneliness | Short Film | 60 Seconds','This short is about Loneliness and depression.We all have suffered from loneliness which in turn leads to depression. It is very important that we talk to one other about whats going on in our lives no matter how happy or sad one might look. Lets not let people around us feel lonely which make them feel like trash.','https://img.youtube.com/vi/IpNG4ohSUkI/maxresdefault.jpg',2,'2024-08-25','2024-08-25 10:43:15','2024-08-25 10:43:15'),(9,1,'RI20wFIzXaI','https://youtu.be/RI20wFIzXaI?si=9buIVcSvG5WMSqM_','Frozen Fever | Movies in 60 Seconds | Disney Kids','Elsa plans a surprise birthday party for Anna, but when she catches a cold and leaves Kristoff in charge, things don\'t go exactly as planned!','https://img.youtube.com/vi/RI20wFIzXaI/maxresdefault.jpg',3,'2024-08-25','2024-08-25 10:43:54','2024-08-25 10:43:54');
+INSERT INTO `videos` VALUES (1,3,'Ip81_0CCJeY','https://youtu.be/Ip81_0CCJeY?si=aQlXUkd9orZfWVr_','The Lion King in 60 Seconds','Everything you need to know about the lion king summarized in 60 seconds.\r\n\r\n\r\nThanks to Oscartoons for lending his voice to this abomination!','https://img.youtube.com/vi/Ip81_0CCJeY/maxresdefault.jpg',1,'2024-08-25','2024-08-25 10:37:23','2024-08-25 10:37:23'),(2,3,'HNbHwmjzcGM','https://youtu.be/HNbHwmjzcGM?si=pzpvu0Gs58Fo3cAu','If Mufasa Was A Better Dad : The Lion King Spoof!','We all love the #lionking  and #mufasa  is a pretty good dad but I dare to ask what if he was better? It is #fathersday  month so there I did it. \r\n\r\n#solidjj  #cartoons  #disney','https://img.youtube.com/vi/HNbHwmjzcGM/maxresdefault.jpg',2,'2024-08-25','2024-08-25 10:38:13','2024-08-25 10:38:13'),(3,3,'Xiw8RCD8mZ4','https://youtu.be/Xiw8RCD8mZ4?si=D8fxZAxtWxxFZm_D','Zootopia in 3 Minutes','Get AtlasVPN for only $1.39 per month for a limited time! https://atlasv.pn/Reedflower\r\n\r\n\r\nSome editing help and Flash the Sloth by Vindag\r\nAll other male voices by HeyZKay:    • Video','https://img.youtube.com/vi/Xiw8RCD8mZ4/maxresdefault.jpg',3,'2024-08-25','2024-08-25 10:38:52','2024-08-25 10:38:52'),(4,2,'VWAqDfFtB0g','https://youtu.be/VWAqDfFtB0g?si=NjHpr8pWZh0ZzDNE','The Apollo Program in 60 Seconds','Made for the 50th anniversary of the Apollo 11 landing, this is a very quick look at all the other Apollo missions that led up to and went beyond the first steps on the Moon.','https://img.youtube.com/vi/VWAqDfFtB0g/maxresdefault.jpg',1,'2024-08-25','2024-08-25 10:40:21','2024-08-25 10:40:21'),(5,2,'XASY30EfGAc','https://youtu.be/XASY30EfGAc?si=KQO54RVlm8YiqTdW','What is a Programming Language in 60 seconds!','Did you know that a programming language is a way for humans to tell computers what to do? In this episode, Laura Holmes goes over how programming languages work and what they are best used for.','https://img.youtube.com/vi/XASY30EfGAc/maxresdefault.jpg',2,'2024-08-25','2024-08-25 10:41:05','2024-08-25 10:41:05'),(6,2,'yp_531ec3D0','https://youtu.be/yp_531ec3D0?si=OY9yR_20RARTkb_x','Programming in 60 seconds','This video explain the main concept behind programming.','https://img.youtube.com/vi/yp_531ec3D0/maxresdefault.jpg',3,'2024-08-25','2024-08-25 10:41:43','2024-08-25 10:41:43'),(7,1,'SjIlYK5BBlI','https://youtu.be/SjIlYK5BBlI?si=O3IkyTHEAyihk2j7','Life in 60 Seconds','Get to know 60 Second Docs, a series of short documentaries profiling subjects and examining perspectives, trends and aspirations beneath the surface, yet all within reach of the mainstream. We provide a fresh look into the most unique characters, lifestyles and trends around the world. Watch us on all of your favorite platforms -- Facebook, Instagram, Twitter, YouTube, Snapchat, Amazon and more. Got a minute?','https://img.youtube.com/vi/SjIlYK5BBlI/maxresdefault.jpg',1,'2024-08-25','2024-08-25 10:42:45','2024-08-25 10:42:45'),(8,1,'IpNG4ohSUkI','https://youtu.be/IpNG4ohSUkI?si=W1JAEzw1oPGog0l1','Loneliness | Short Film | 60 Seconds','This short is about Loneliness and depression.We all have suffered from loneliness which in turn leads to depression. It is very important that we talk to one other about whats going on in our lives no matter how happy or sad one might look. Lets not let people around us feel lonely which make them feel like trash.','https://img.youtube.com/vi/IpNG4ohSUkI/maxresdefault.jpg',2,'2024-08-25','2024-08-25 10:43:15','2024-08-25 10:43:15'),(9,1,'RI20wFIzXaI','https://youtu.be/RI20wFIzXaI?si=9buIVcSvG5WMSqM_','Frozen Fever | Movies in 60 Seconds | Disney Kids','Elsa plans a surprise birthday party for Anna, but when she catches a cold and leaves Kristoff in charge, things don\'t go exactly as planned!','https://img.youtube.com/vi/RI20wFIzXaI/maxresdefault.jpg',3,'2024-08-25','2024-08-25 10:43:54','2024-08-25 10:43:54'),(10,5,'SjIlYK5BBlI','https://youtu.be/pFuh3K3wQg8?si=GS_Cg_p9zPwoAPLo','aula teste','asdsdsda','https://img.youtube.com/vi/pFuh3K3wQg8/maxresdefault.jpg',1,'2024-09-18','2024-09-18 08:08:28','2024-09-18 08:08:28'),(12,NULL,'SjIlYK5BBlI','https://youtu.be/SjIlYK5BBlI?si=Dnnxk7ZkJaHL5pA-','Aula sem curso','sdsadasd','https://img.youtube.com/vi/SjIlYK5BBlI/maxresdefault.jpg',1,'2024-09-19','2024-09-19 07:56:39','2024-09-19 09:54:41'),(14,NULL,'UwNw0fvUmAI','https://youtu.be/UwNw0fvUmAI?si=cYzib8JgnyoAsmH9','Aula teste','Chegou um anime polêmico que surpreendeu a todos com a sua arte, animação e linguagem sem censura! Análise do primeiro episódio de DAN DA DAN e todas as minhas primeiras impressões dessa estreia! \n\nCamisetas da minha coleção: http://lolja.com.br/gabi-xavier\n\n#dandadan','https://img.youtube.com/vi/UwNw0fvUmAI/maxresdefault.jpg',25,'2024-10-08','2024-10-08 06:22:23','2024-10-08 06:22:23');
 /*!40000 ALTER TABLE `videos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -570,4 +850,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-25 14:57:59
+-- Dump completed on 2024-10-09  6:35:31
